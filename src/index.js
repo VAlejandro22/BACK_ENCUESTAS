@@ -51,6 +51,20 @@ app.put('/encuestas/:id', async (req, res) => {
   }
 });
 
+app.put('/encuestasFormI/:id', async (req, res) => {
+  const { id } = req.params;
+  const datosActualizados = req.body;
+
+  try {
+    const encuesta = await db.get(id);
+    encuesta.form = datosActualizados;
+    const response = await db.insert(encuesta);
+    res.json(response);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 app.delete('/encuestas/:id', async (req, res) => {
   const { id } = req.params;
