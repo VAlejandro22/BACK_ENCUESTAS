@@ -35,6 +35,16 @@ app.post('/encuestas', async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   });
+
+  app.post('/encuestasAREAS', async (req, res) => {
+    const nuevaEncuesta = req.body;
+    try {
+      const response = await db.insert(nuevaEncuesta);
+      res.status(201).json({ id: response.id });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
   
 
 app.put('/encuestas/:id', async (req, res) => {
